@@ -47,7 +47,7 @@ namespace TechJobsConsole
 
             foreach (Dictionary<string, string> row in AllJobs)
             {
-                string aValue = row[column];
+                string aValue = row[column].ToUpper();
 
                 if (aValue.Contains(value))
                 {
@@ -58,6 +58,27 @@ namespace TechJobsConsole
             return jobs;
         }
 
+        public static List<Dictionary<string, string>> FindByValue(string value)
+        {
+            LoadData();
+
+            List<Dictionary<string, string>> careers = new List<Dictionary<string, string>>();
+
+            foreach (Dictionary<string, string> row in AllJobs)
+            {
+                foreach (KeyValuePair<string, string> pair in row)
+                {
+                    if (pair.Value.ToUpper().Contains(value))
+                    {
+                        careers.Add(row);
+                        break;
+                    }
+                }
+            }
+
+            return careers;
+        }
+        
         /*
          * Load and parse data from job_data.csv
          */
